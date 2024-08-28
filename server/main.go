@@ -7,9 +7,13 @@ import (
 	"os"
 )
 
-// home handles requests to the home page.
+// home handles requests to the home page and to all pages which might not be found.
 func home(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecTpl(w, r, "home.html", nil)
+	if r.URL.Path == "/" {
+		tpl.ExecTpl(w, r, "home.html", nil)
+	} else {
+		tpl.ExecTpl(w, r, "not-found.html", nil)
+	}
 }
 
 // main is the entry point for the application.
@@ -23,8 +27,8 @@ func main() {
 	}
 
 	// Add handler functions for the server.
-	http.HandleFunc("/", home)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.HandleFunc("/", home)
 
 	// Start the server on port 8080.
 	slog.Info("Starting server on http://localhost:8080")

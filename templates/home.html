@@ -1,4 +1,39 @@
 {{template "head.html"}}
-{{template "headline.html"}}
-<p>This is still work in progress!</p>
+{{template "nav.html"}}
+
+<section class="grid">
+    <div style="max-width: 80%;">
+        <h1>Welcome to the Tour of Pirsch Analytics!</h1>
+        <p>Take the tour and learn how to implement and interpret your web analytics data!</p>
+        <p>This is a demo shop, showcasing most of the features of Pirsch Analytics. To learn more, please read the tour on our <a href="https://pirsch.io/tour" target="_blank">website</a>.</p>
+    </div>
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+    {{template "product-card.html"}}
+</section>
+
+<section class="grid">
+    <div class="card card-2">
+        <h2>Need Assistance?</h2>
+        <p>We gladly help you with any problem you might encounter.</p>
+        <p>
+            <a href="/contact">Contact us</a>
+        </p>
+    </div>
+    <div class="card">
+        <h2>Product Catalogue</h2>
+        <p>Download our product catalogue.</p>
+        <p>
+            <a href="/static/sample.pdf" target="_blank">Download PDF</a>
+        </p>
+    </div>
+</section>
+
+{{template "newsletter.html"}}
+{{template "footer.html"}}
 {{template "end.html"}}
