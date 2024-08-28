@@ -24,6 +24,7 @@ func main() {
 
 	// Add handler functions for the server.
 	http.HandleFunc("/", home)
+	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	// Start the server on port 8080.
 	slog.Info("Starting server on http://localhost:8080")

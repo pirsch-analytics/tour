@@ -20,13 +20,13 @@ var (
 	m sync.RWMutex
 )
 
-// LoadTemplates loads the template files from the static directory.
+// LoadTemplates loads the template files from the templates directory.
 func LoadTemplates(liveReload bool) error {
 	m.Lock()
 	defer m.Unlock()
 	tpl = template.New("")
 
-	if err := filepath.Walk("static", func(path string, info os.FileInfo, err error) error {
+	if err := filepath.Walk("templates", func(path string, info os.FileInfo, err error) error {
 		if filepath.Ext(path) == ".html" {
 			if _, e := tpl.ParseFiles(path); e != nil {
 				slog.Error("Error loading template", "err", e, "path", path)
