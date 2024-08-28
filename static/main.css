@@ -31,15 +31,24 @@ nav {
     letter-spacing: -.025em;
     line-height: 1;
     text-transform: uppercase;
-    padding: 10px 0;
+    padding: 1.25rem 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media only screen and (max-width: 680px) {
+        align-items: flex-start;
+    }
 
     ul {
         list-style: none;
         display: inline-flex;
         gap: 1rem;
+        margin: 0;
+
+        @media only screen and (max-width: 680px) {
+            flex-direction: column;
+        }
     }
 
     a {
@@ -123,7 +132,7 @@ button:hover, input[type~="submit"]:hover {
 }
 
 form {
-    margin: 1rem 0;
+    margin: 1rem auto;
     display: flex;
     gap: 0.5rem;
     flex-direction: column;
@@ -208,6 +217,14 @@ input {
     color: var(--text);
 }
 
+.text {
+    max-width: 80%;
+
+    @media only screen and (max-width: 680px) {
+        max-width: 100%;
+    }
+}
+
 .product-img {
     display: flex;
     justify-content: center;
@@ -229,7 +246,18 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8rem 0;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+
+    form {
+        flex-direction: row;
+        max-width: 400px;
+
+        @media only screen and (max-width: 680px) {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 }
 
 .split {
