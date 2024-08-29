@@ -18,7 +18,16 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 // product handles requests to product pages.
 func product(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecTpl(w, r, "product.html", nil)
+	tpl.ExecTpl(w, r, "product.html", struct {
+		Slug string
+	}{
+		r.PathValue("slug"),
+	})
+}
+
+// contact handles requests to contact pages.
+func contact(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "contact.html", nil)
 }
 
 // main is the entry point for the application.
@@ -33,7 +42,8 @@ func main() {
 
 	// Add handler functions for the server.
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
-	http.HandleFunc("/product/{name}", product)
+	http.HandleFunc("/product/{slug}", product)
+	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/", home)
 
 	// Start the server on port 8080.

@@ -4,6 +4,7 @@
     --headline: #525252;
     --linkHover: #FF2600;
     --cardBg: #fff;
+    --inputBg: #F5F5F5;
 }
 
 * {
@@ -154,13 +155,18 @@ label {
     font-size: 0.5rem;
 }
 
-input {
+input, textarea {
     width: 100%;
     font-size: .75rem;
-    border: 1px solid var(--text);
+    border-width: 0;
     border-radius: .75rem;
     padding: 0.75rem 1rem;
     margin: 0;
+    background: var(--inputBg);
+}
+
+textarea {
+    min-height: 8rem;
 }
 
 .grid {

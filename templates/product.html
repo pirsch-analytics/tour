@@ -1,34 +1,46 @@
 {{template "head.html"}}
 {{template "nav.html"}}
 
+{{$p := product .Slug}}
+
 <section class="grid">
-    <div class="split-vertical">
+    {{if $p}}
+        <div class="split-vertical">
+            <div class="text">
+                <h1>{{$p.Name}}</h1>
+                <p>{{$p.Description}}</p>
+            </div>
+            <a href="/order/{{$p.Slug}}" class="button order">Order now for {{$p.Price}}</a>
+        </div>
+        <div class="card card-2">
+            <div class="product-img">
+                <img src="/static/img/{{$p.Img2}}" alt="Product Image 1" />
+            </div>
+        </div>
+        <div class="grid-vertical">
+            <div class="card">
+                <h2>Highlights</h2>
+                <p>{{$p.Highlights}}</p>
+            </div>
+            <div class="card">
+                <h2>Details</h2>
+                <p>{{$p.Details}}</p>
+            </div>
+        </div>
+        <div class="card card-2">
+            <div class="product-img">
+                <img src="/static/img/{{$p.Img1}}" alt="Product Image 2" />
+            </div>
+        </div>
+    {{else}}
         <div class="text">
-            <h1>Product Name</h1>
-            <p>Elevate your SuperSomething v4's aesthetic with our exclusive collection. Gone are the days of conventional designs. Our innovative process transforms standard patterns into exceptional skins for your device.</p>
+            <h1>Product not found</h1>
+            <p>Sorry, we couldn't find the product you're looking for!</p>
+            <p>
+                <a href="/">Go to Homepage</a>
+            </p>
         </div>
-        <a href="/order/name" class="button order">Order now for $195.98</a>
-    </div>
-    <div class="card card-2">
-        <div class="product-img">
-            <img src="/static/img/test2.jpeg" alt="Product Image 1" />
-        </div>
-    </div>
-    <div class="grid-vertical">
-        <div class="card">
-            <h2>Highlights</h2>
-            <p>Showcase your SuperSomething v4 with over 200 mockups in three unique styles Seamlessly compatible with leading design platforms: Figma, Sketch, and Adobe XD.</p>
-        </div>
-        <div class="card">
-            <h2>Details</h2>
-            <p>Showcase your SuperSomething v4 with over 200 mockups in three unique styles.</p>
-        </div>
-    </div>
-    <div class="card card-2">
-        <div class="product-img">
-            <img src="/static/img/test.jpeg" alt="Product Image 2" />
-        </div>
-    </div>
+    {{end}}
 </section>
 
 {{template "catalogue.html"}}

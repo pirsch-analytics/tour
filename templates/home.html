@@ -7,16 +7,9 @@
         <p>Take the tour and learn how to implement and interpret your web analytics data!</p>
         <p>This is a demo shop, showcasing most of the features of Pirsch Analytics. To learn more, please read the tour on our <a href="https://pirsch.io/tour" target="_blank">website</a>.</p>
     </div>
-    {{
-        template "product-card.html"
-        (
-            dict
-            "slug" "device-a"
-            "img" "test.jpeg"
-            "name" "Device A"
-            "price" "$195.98"
-        )
-    }}
+    {{range $p := products}}
+        {{template "product-card.html" (dict "slug" $p.Slug "img" $p.Img1 "name" $p.Name "price" $p.Price)}}
+    {{end}}
 </section>
 
 {{template "catalogue.html"}}

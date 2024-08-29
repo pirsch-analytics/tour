@@ -2,6 +2,7 @@ package tpl
 
 import (
 	"fmt"
+	"github.com/pirsch-analytics/tour/server/data"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -25,8 +26,12 @@ var (
 func LoadTemplates(liveReload bool) error {
 	m.Lock()
 	defer m.Unlock()
+
+	// Create a new empty template to load the files into. The func map can be used inside the templates.
 	tpl = template.New("").Funcs(template.FuncMap{
-		"dict": dict,
+		"dict":     dict,
+		"product":  data.GetProduct,
+		"products": data.ListProducts,
 	})
 
 	if err := filepath.Walk("templates", func(path string, info os.FileInfo, err error) error {
