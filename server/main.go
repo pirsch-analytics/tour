@@ -44,6 +44,21 @@ func contact(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecTpl(w, r, "contact.html", nil)
 }
 
+// phone handles requests to the phone landing page.
+func phone(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "phone.html", nil)
+}
+
+// pad handles requests to the pad landing page.
+func pad(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "pad.html", nil)
+}
+
+// watch handles requests to the watch landing page.
+func watch(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "watch.html", nil)
+}
+
 // main is the entry point for the application.
 func main() {
 	// Dev mode is used to live reload templates.
@@ -60,6 +75,9 @@ func main() {
 	http.HandleFunc("/checkout/{slug}", checkout)
 	http.HandleFunc("/thank-you", thankYou)
 	http.HandleFunc("/contact", contact)
+	http.HandleFunc("/phone", phone)
+	http.HandleFunc("/pad", pad)
+	http.HandleFunc("/watch", watch)
 	http.HandleFunc("/", home)
 
 	// Start the server on port 8080.
