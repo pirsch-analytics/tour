@@ -16,6 +16,11 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+// product handles requests to product pages.
+func product(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "product.html", nil)
+}
+
 // main is the entry point for the application.
 func main() {
 	// Dev mode is used to live reload templates.
@@ -28,6 +33,7 @@ func main() {
 
 	// Add handler functions for the server.
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.HandleFunc("/product/{name}", product)
 	http.HandleFunc("/", home)
 
 	// Start the server on port 8080.

@@ -1,9 +1,9 @@
-<a href="/product/1" class="card">
+<a href="/product/{{index . "slug"}}" class="card">
     <div class="product-img">
-        <img src="/static/img/test.jpeg" alt="Product Image" />
+        <img src="/static/img/{{index . "img"}}" alt="Product Image" />
     </div>
     <div class="product-name-price">
-        <span>Walkman</span>
-        <span>$198.50</span>
+        <span>{{index . "name"}}</span>
+        <span>{{index . "price"}}</span>
     </div>
 </a>

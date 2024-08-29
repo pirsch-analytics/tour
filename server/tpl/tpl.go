@@ -1,6 +1,7 @@
 package tpl
 
 import (
+	"fmt"
 	"html/template"
 	"log/slog"
 	"net/http"
@@ -24,7 +25,9 @@ var (
 func LoadTemplates(liveReload bool) error {
 	m.Lock()
 	defer m.Unlock()
-	tpl = template.New("")
+	tpl = template.New("").Funcs(template.FuncMap{
+		"dict": dict,
+	})
 
 	if err := filepath.Walk("templates", func(path string, info os.FileInfo, err error) error {
 		if filepath.Ext(path) == ".html" {
@@ -58,5 +61,40 @@ func ExecTpl(w http.ResponseWriter, r *http.Request, name string, data any) {
 
 	if err := tpl.ExecuteTemplate(w, name, data); err != nil {
 		slog.Error("Error executing template", "err", err, "name", name, "path", r.URL.Path)
+	}
+}
+
+// dict is a helper function to pass key-value pairs in templates.
+func dict(v ...any) map[string]any {
+	dict := map[string]any{}
+	lenv := len(v)
+
+	for i := 0; i < lenv; i += 2 {
+		key := strVal(v[i])
+
+		if i+1 >= lenv {
+			dict[key] = ""
+			continue
+		}
+
+		dict[key] = v[i+1]
+	}
+
+	return dict
+}
+
+// strVal converts the given variable to a string.
+func strVal(v any) string {
+	switch v := v.(type) {
+	case string:
+		return v
+	case []byte:
+		return string(v)
+	case error:
+		return v.Error()
+	case fmt.Stringer:
+		return v.String()
+	default:
+		return fmt.Sprintf("%v", v)
 	}
 }
