@@ -13,3 +13,19 @@ Running the demo locally is easy! You only need to have [Go](https://go.dev) ins
 ```
 make run
 ```
+
+## Building for Production
+
+The repository provides a Docker image that can be used for production. It exposes port 8080. Everything else is static. The version number needs to be provided.
+
+```
+VERSION=<version_number> make build
+```
+
+The server can then be started using Docker:
+
+```
+docker run -p 8080:8080 ghcr.io/pirsch-analytics/tour:<version_number>
+```
+
+To run it locally, modify the image path in the `Makefile`.
