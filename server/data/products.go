@@ -19,15 +19,15 @@ type Product struct {
 
 // Products is a map of all products with the slug as index.
 var Products = map[string]Product{
-	"device-a": {
-		Slug:        "device-a",
-		Name:        "Device A",
-		Price:       "$195.98",
+	"pirsch-phone-1": {
+		Slug:        "pirsch-phone-1",
+		Name:        "Pirsch Phone 1",
+		Price:       "$799",
 		Description: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
 		Highlights:  "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.",
 		Details:     "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea.",
-		Img1:        "test.jpeg",
-		Img2:        "test2.jpeg",
+		Img1:        "pirsch-phone-1/Pirsch Phone 6.png",
+		Img2:        "pirsch-phone-1/Pirsch Phone 3.png",
 	},
 }
 

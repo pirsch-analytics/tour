@@ -1,0 +1,17 @@
+{{template "head.html"}}
+{{template "nav.html"}}
+
+{{$p := product .Slug}}
+
+<section class="grid">
+    {{if $p}}
+        <div class="text">
+            <h1>Checkout</h1>
+        </div>
+    {{else}}
+        {{template "product-not-found.html"}}
+    {{end}}
+</section>
+
+{{template "footer.html"}}
+{{template "end.html"}}

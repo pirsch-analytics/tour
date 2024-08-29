@@ -16,7 +16,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// product handles requests to product pages.
+// product handles requests to product page for a specific product.
 func product(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecTpl(w, r, "product.html", struct {
 		Slug string
@@ -25,7 +25,16 @@ func product(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// contact handles requests to contact pages.
+// checkout handles requests to checkout page for a specific product.
+func checkout(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "checkout.html", struct {
+		Slug string
+	}{
+		r.PathValue("slug"),
+	})
+}
+
+// contact handles requests to contact page.
 func contact(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecTpl(w, r, "contact.html", nil)
 }
@@ -43,6 +52,7 @@ func main() {
 	// Add handler functions for the server.
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 	http.HandleFunc("/product/{slug}", product)
+	http.HandleFunc("/checkout/{slug}", checkout)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/", home)
 
