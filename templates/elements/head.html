@@ -12,5 +12,12 @@
     <link rel="stylesheet" type="text/css" href="/static/style/main.css" />
     <script src="/static/script/a.js"></script>
     <title>Tour of Pirsch Analytics</title>
+
+    <script defer src="{{cfg.ScriptSrc}}"
+        id="pianjs"
+        data-code="{{cfg.ScriptIdentificationCode}}"
+        data-hit-endpoint="{{cfg.ScriptHitEndpoint}}"
+        data-event-endpoint="{{cfg.ScriptEventEndpoint}}"
+        {{if cfg.ScriptDev}}data-dev{{end}}></script>
 </head>
 <body>

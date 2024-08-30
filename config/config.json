@@ -1,0 +1,10 @@
+{
+    "dev": true,
+    "host": "localhost.com:8081",
+    "script_identification_code": "Pc5116q0sQQGTeSYCKEXAm6jguRaZHWI",
+    "script_src": "https://localhost.com:9999/pa.js",
+    "script_hit_endpoint": "https://localhost.com:9999/hit",
+    "script_event_endpoint": "https://localhost.com:9999/event",
+    "script_dev": true,
+    "client_secret": ""
+}

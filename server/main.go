@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/pirsch-analytics/tour/server/cfg"
 	"github.com/pirsch-analytics/tour/server/tpl"
 	"log/slog"
 	"net/http"
@@ -61,11 +62,21 @@ func watch(w http.ResponseWriter, r *http.Request) {
 
 // main is the entry point for the application.
 func main() {
-	// Dev mode is used to live reload templates.
-	devMode := len(os.Args) > 1 && os.Args[1] == "dev"
+	// Load the configuration.
+	path := "config.json"
+
+	if len(os.Args) > 1 {
+		path = os.Args[1]
+	}
+
+	if err := cfg.Load(path); err != nil {
+		slog.Error("Error loading configuration", "err", err)
+		return
+	}
 
 	// Load the templates.
-	if err := tpl.LoadTemplates(devMode); err != nil {
+	if err := tpl.LoadTemplates(cfg.Get().Dev); err != nil {
+		slog.Error("Error loading templates", "err", err)
 		return
 	}
 
@@ -81,9 +92,9 @@ func main() {
 	http.HandleFunc("/", home)
 
 	// Start the server on port 8080.
-	slog.Info("Starting server on http://localhost:8080")
+	slog.Info("Starting server", "host", cfg.Get().Host)
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe(cfg.Get().Host, nil); err != nil {
 		slog.Error("Error starting server", "err", err)
 	}
 }
