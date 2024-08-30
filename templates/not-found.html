@@ -6,10 +6,20 @@
         <h1>404 page not found!</h1>
         <p>Sorry, but the requested page does not exist.</p>
         <p>
-            <a href="/" class="button">Go Home</a>
+            <a href="/" class="button" data-pirsch-event="Go Home">Go Home</a>
         </p>
     </div>
 </section>
+
+<script>
+    // Track the 404 error page event.
+    // pirschNotFound is a global function created by the script snippet.
+    document.addEventListener("readystatechange", () => {
+        if (document.readyState === "complete") {
+            pirschNotFound();
+        }
+    });
+</script>
 
 {{template "footer.html"}}
 {{template "end.html"}}

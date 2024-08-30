@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="grid-vertical" style="grid-template-rows: auto 1fr;">
-            <a href="/thank-you" class="button order">Confirm order</a>
+            <button class="order" form="confirmOrderForm">Confirm order</button>
             <div class="card">
                 <h2>Terms and conditions</h2>
                 <p>By confirming the order you accept our terms and conditions and agree that your data is transmitted to our payment processor.</p>
@@ -29,15 +29,18 @@
         </div>
         <div class="card card-2">
             <h2>Shipping address</h2>
-            <form>
-                <input type="text" name="name" placeholder="YOUR NAME" required />
-                <input type="email" name="email" placeholder="ME@EXAMPLE.COM" required />
+            <form action="/thank-you" id="confirmOrderForm" data-pirsch-form="Order">
+                <input type="text" name="name" placeholder="YOUR NAME" required data-pirsch-input />
+                <input type="email" name="email" placeholder="ME@EXAMPLE.COM" required data-pirsch-input />
                 <input type="text" name="address" placeholder="ADDRESS" required />
                 <input type="text" name="city" placeholder="CITY" required />
                 <input type="text" name="postal" placeholder="POSTAL CODE" required />
                 <input type="text" name="card" placeholder="CARD NUMBER" required />
                 <input type="text" name="expiration" placeholder="CARD EXPIRATION DATE" required />
                 <input type="text" name="cvc" placeholder="CVC" required />
+
+                <!-- Include the product ID as a hidden field so we can filter for it on the dashboard. -->
+                <input type="hidden" name="product" value="{{$p.Name}}" data-pirsch-input />
             </form>
         </div>
         <div></div>

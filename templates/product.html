@@ -10,7 +10,10 @@
                 <h1>{{$p.Name}}</h1>
                 <p>{{$p.Description}}</p>
             </div>
-            <a href="/checkout/{{$p.Slug}}" class="button order">Order now for {{$p.Price}}</a>
+            <a href="/checkout/{{$p.Slug}}"
+               class="button order"
+               data-pirsch-event="Clicked Order Button"
+               data-pirsch-meta-product="{{$p.Name}}">Order now for {{$p.Price}}</a>
         </div>
         <div class="card">
             <div class="product-img">

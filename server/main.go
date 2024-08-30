@@ -13,6 +13,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path == "/" {
 		tpl.ExecTpl(w, r, "home.html", nil)
 	} else {
+		w.WriteHeader(http.StatusNotFound)
 		tpl.ExecTpl(w, r, "not-found.html", nil)
 	}
 }
@@ -35,9 +36,19 @@ func checkout(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// thankYou handles requests to the thank you page.
+// thankYou handles requests to the thank-you page.
 func thankYou(w http.ResponseWriter, r *http.Request) {
 	tpl.ExecTpl(w, r, "thank-you.html", nil)
+}
+
+// thankYouNewsletter handles requests to the thank-you newsletter page.
+func thankYouNewsletter(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "newsletter-thank-you.html", nil)
+}
+
+// thankYouContact handles requests to the thank-you contact page.
+func thankYouContact(w http.ResponseWriter, r *http.Request) {
+	tpl.ExecTpl(w, r, "contact-thank-you.html", nil)
 }
 
 // contact handles requests to the contact page.
@@ -85,6 +96,8 @@ func main() {
 	http.HandleFunc("/product/{slug}", product)
 	http.HandleFunc("/checkout/{slug}", checkout)
 	http.HandleFunc("/thank-you", thankYou)
+	http.HandleFunc("/newsletter-thank-you", thankYouNewsletter)
+	http.HandleFunc("/contact-thank-you", thankYouContact)
 	http.HandleFunc("/contact", contact)
 	http.HandleFunc("/phone", phone)
 	http.HandleFunc("/pad", pad)

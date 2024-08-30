@@ -378,6 +378,7 @@ small {
     width: 100%;
     padding: 1rem;
     font-size: 0.875rem;
+    text-align: left;
 }
 
 .order-position {
