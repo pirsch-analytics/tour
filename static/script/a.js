@@ -4,6 +4,7 @@ console.log("Please check out the tour on our website to learn more: https://pir
 // Before attaching any Pirsch events, we wait for the page to be fully loaded.
 document.addEventListener("DOMContentLoaded", () => {
     trackFormSubmissions();
+    trackScrollDepth();
 });
 
 function trackFormSubmissions() {
@@ -28,3 +29,43 @@ function trackFormSubmissions() {
         });
     });
 }
+
+function trackScrollDepth() {
+    // List of pages we would like to track the scroll depth on.
+    const pages = [
+        "/phone",
+        "/pad",
+        "/watch"
+    ];
+
+    if (pages.includes(location.pathname)) {
+        // Update the scroll position.
+        let position = 0;
+
+        window.addEventListener("scroll", () => {
+            const p = getScrollPercent();
+
+            if (p > position) {
+                position = p;
+            }
+        });
+
+        // Before we leave the page, send it.
+        window.onbeforeunload = beforeUnload;
+
+        function beforeUnload() {
+            pirsch("Scroll Depth", {meta: {position}});
+        }
+
+        function getScrollPercent() {
+            const h = document.documentElement,
+                b = document.body,
+                st = 'scrollTop',
+                sh = 'scrollHeight';
+            return Math.floor((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100);
+        }
+    }
+}
+
+// TODO a/b testing
+// TODO construct script?
