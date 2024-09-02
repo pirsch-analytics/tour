@@ -8,7 +8,7 @@ Please note that the code in this repository is for demonstration purposes only!
 
 ## Running the Demo Locally
 
-Running the demo locally is easy! You only need to have [Go](https://go.dev) installed. After you've installed it, you can clone the repository and start the server.
+Running the demo locally is easy! You only need to have [Go](https://go.dev) installed. After you've installed it, you can clone the repository, adjust `config/config.json`, and start the server.
 
 ```
 make run
@@ -27,7 +27,7 @@ VERSION=<version_number> make build
 The server can then be started using Docker:
 
 ```
-docker run -p 8080:8080 ghcr.io/pirsch-analytics/tour:<version_number>
+docker run -p 8080:8080 -v ./config.json:/app/config.json ghcr.io/pirsch-analytics/tour:<version_number>
 ```
 
 To run it locally or for your own uses, modify the image path in the `Makefile`.

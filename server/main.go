@@ -1,11 +1,18 @@
 package main
 
 import (
+	"github.com/pirsch-analytics/tour/server/ab"
 	"github.com/pirsch-analytics/tour/server/cfg"
 	"github.com/pirsch-analytics/tour/server/tpl"
 	"log/slog"
 	"net/http"
 	"os"
+)
+
+var (
+	experimentPhoneHeader = ab.New("phone-header", []string{"simple", "colorful-cta"})
+	experimentPadHeader   = ab.New("pad-header", []string{"simple", "colorful-cta"})
+	experimentWatchHeader = ab.New("watch-header", []string{"simple", "colorful-cta"})
 )
 
 // home handles requests to the home page and to all pages which might not be found.
@@ -58,17 +65,38 @@ func contact(w http.ResponseWriter, r *http.Request) {
 
 // phone handles requests to the phone landing page.
 func phone(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecTpl(w, r, "phone.html", nil)
+	experiment, variant := experimentPhoneHeader.Next(w, r)
+	tpl.ExecTpl(w, r, "phone.html", struct {
+		Experiment string
+		Variant    string
+	}{
+		experiment,
+		variant,
+	})
 }
 
 // pad handles requests to the pad landing page.
 func pad(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecTpl(w, r, "pad.html", nil)
+	experiment, variant := experimentPadHeader.Next(w, r)
+	tpl.ExecTpl(w, r, "pad.html", struct {
+		Experiment string
+		Variant    string
+	}{
+		experiment,
+		variant,
+	})
 }
 
 // watch handles requests to the watch landing page.
 func watch(w http.ResponseWriter, r *http.Request) {
-	tpl.ExecTpl(w, r, "watch.html", nil)
+	experiment, variant := experimentWatchHeader.Next(w, r)
+	tpl.ExecTpl(w, r, "watch.html", struct {
+		Experiment string
+		Variant    string
+	}{
+		experiment,
+		variant,
+	})
 }
 
 // main is the entry point for the application.

@@ -66,6 +66,3 @@ function trackScrollDepth() {
         }
     }
 }
-
-// TODO a/b testing
-// TODO construct script?

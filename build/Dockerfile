@@ -18,4 +18,5 @@ RUN apt update && \
 COPY --from=build /app /app
 WORKDIR /app
 EXPOSE 8080
-ENTRYPOINT ["/app/server"]
+VOLUME ["/app/config.json"]
+ENTRYPOINT ["/app/server", "/app/config.json"]

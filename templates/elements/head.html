@@ -18,6 +18,7 @@
         data-code="{{cfg.ScriptIdentificationCode}}"
         data-hit-endpoint="{{cfg.ScriptHitEndpoint}}"
         data-event-endpoint="{{cfg.ScriptEventEndpoint}}"
-        {{if cfg.ScriptDev}}data-dev{{end}}></script>
+        {{if cfg.ScriptDev}}data-dev{{end}}
+        {{if .Experiment}}data-tag-{{.Experiment}}="{{.Variant}}"{{end}}></script>
 </head>
 <body>

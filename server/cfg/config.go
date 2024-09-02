@@ -14,6 +14,7 @@ var (
 type Config struct {
 	Dev                      bool   `json:"dev"`
 	Host                     string `json:"host"`
+	SecureCookies            bool   `json:"secure_cookies"`
 	ScriptIdentificationCode string `json:"script_identification_code"`
 	ScriptSrc                string `json:"script_src"`
 	ScriptHitEndpoint        string `json:"script_hit_endpoint"`

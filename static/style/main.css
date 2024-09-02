@@ -1,6 +1,7 @@
 :root {
     --bg: #F5F5F5;
     --text: #737373;
+    --light: #dadada;
     --headline: #525252;
     --linkHover: #6ece9d;
     --cardBg: #fff;
@@ -153,6 +154,17 @@ button:after, input[type~="submit"]:after, .button:after {
     bottom: 0;
     content: "🠒";
     font-size: 1.5rem;
+}
+
+.reverse {
+    text-align: right !important;
+    padding: 0.75rem 1rem 0.75rem 2.5rem;
+}
+
+.reverse:after {
+    left: 0.75rem;
+    right: auto;
+    transform: rotate(180deg);
 }
 
 form {
@@ -393,5 +405,23 @@ small {
     @media only screen and (max-width: 680px) {
         flex-direction: column;
         gap: 2rem;
+    }
+}
+
+.secondary {
+    background: var(--light);
+}
+
+.highlight {
+    background: radial-gradient(circle, rgba(110,206,157,0.2) 0%, rgba(255,255,255,0) 60%);
+
+    @media only screen and (max-width: 680px) {
+        background: none;
+    }
+
+    h1 {
+        color: var(--linkHover);
+        font-size: 2rem;
+        line-height: 2.5rem;
     }
 }

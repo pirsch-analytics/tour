@@ -1,16 +1,22 @@
-{{template "head.html"}}
+{{template "head.html" .}}
 {{template "nav.html"}}
 
 <section class="grid">
-    <div class="text card-3 center">
+    <div class="text card-3 center {{if eq .Variant "colorful-cta"}}highlight{{end}}">
         <h1>Introducing: The Pirsch Phone 1</h1>
         <p>Introducing the Pirsch Phone 1, a smartphone designed for those who value privacy and uncompromising build quality.</p>
+
+        {{if eq .Variant "colorful-cta"}}
+            <p>
+                <a href="/product/pirsch-phone-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="Hero">Get Yours</a>
+            </p>
+        {{end}}
     </div>
     <div class="card">
         <h2>For Those Who Value Privacy</h2>
         <p>Introducing the Pirsch Phone 1, a smartphone designed for those who value privacy and uncompromising build quality. Encased in a sleek aluminum body, this device combines modern aesthetics with robust durability, ensuring it stands the test of time. At the heart of the Pirsch Phone 1 is a commitment to protecting your data, with cutting-edge encryption and security features that put you in control. Experience a smartphone that not only performs exceptionally but also respects your right to privacy.</p>
         <p>
-            <a href="/product/pirsch-phone-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="1">Order now</a>
+            <a href="/checkout/pirsch-phone-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="1">Order now</a>
         </p>
     </div>
     <div class="card card-2" style="min-height: 30rem;">
@@ -27,7 +33,7 @@
         <h2>High Quality Smartphone</h2>
         <p>The Pirsch Phone 1 stands out with its steadfast commitment to user privacy and exceptional build quality. Crafted from high-grade aluminum, it’s as sturdy as it is sleek, offering a premium feel that lasts. With advanced privacy features like hardware-based encryption and a custom, privacy-focused OS, your data remains secure and under your control. Every detail, from the seamless design to the integrated security protocols, has been meticulously crafted to ensure that the Pirsch Phone 1 delivers not just performance, but peace of mind.</p>
         <p>
-            <a href="/product/pirsch-phone-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="2">Order now</a>
+            <a href="/checkout/pirsch-phone-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="2">Order now</a>
         </p>
     </div>
     <div class="card">

@@ -1,16 +1,22 @@
-{{template "head.html"}}
+{{template "head.html" .}}
 {{template "nav.html"}}
 
 <section class="grid">
-    <div class="text card-3 center">
+    <div class="text card-3 center {{if eq .Variant "colorful-cta"}}highlight{{end}}">
         <h1>Introducing: The Pirsch Watch 1</h1>
         <p>Introducing the Pirsch Watch 1, a smartwatch that seamlessly blends privacy, durability, and sophisticated design.</p>
+
+        {{if eq .Variant "colorful-cta"}}
+            <p>
+                <a href="/product/pirsch-watch-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="Hero">Get Yours</a>
+            </p>
+        {{end}}
     </div>
     <div class="card">
         <h2>For Those Who Value Privacy</h2>
         <p>Introducing the Pirsch Watch 1, a smartwatch that seamlessly blends privacy, durability, and sophisticated design. Housed in a sleek aluminum case, this smartwatch is built to withstand the rigors of daily life while maintaining a refined, modern appearance. The Pirsch Watch 1 is committed to protecting your personal data, featuring advanced encryption and secure software to ensure that your information remains private. Stay connected and in control with a smartwatch that prioritizes your security without compromising on style.</p>
         <p>
-            <a href="/product/pirsch-watch-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="1">Order now</a>
+            <a href="/checkout/pirsch-watch-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="1">Order now</a>
         </p>
     </div>
     <div class="card card-2" style="min-height: 40rem;">
@@ -27,7 +33,7 @@
         <h2>High Quality Watch</h2>
         <p>The Pirsch Watch 1 stands out with its combination of robust build quality and dedicated privacy features. Crafted from high-grade aluminum, it offers both strength and elegance in a compact form. With hardware-based encryption and a privacy-focused operating system, your personal data stays secure, giving you the confidence to use your smartwatch freely. Every element of the Pirsch Watch 1 is designed to deliver a premium experience that emphasizes both security and durability.</p>
         <p>
-            <a href="/product/pirsch-watch-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="2">Order now</a>
+            <a href="/checkout/pirsch-watch-1" class="button" data-pirsch-event="Order Now" data-pirsch-meta-position="2">Order now</a>
         </p>
     </div>
     <div class="card">

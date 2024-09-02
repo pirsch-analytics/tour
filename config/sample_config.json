@@ -1,6 +1,7 @@
 {
     "dev": false,
     "host": "tour.pirsch.io",
+    "secure_cookies": false,
     "script_identification_code": "...",
     "client_secret": ""
 }
