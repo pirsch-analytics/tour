@@ -13,11 +13,11 @@
     <script src="/static/script/a.js"></script>
     <title>Tour of Pirsch Analytics</title>
 
-    <script defer src="{{cfg.ScriptSrc}}"
+    <script defer src="{{if cfg.ScriptSrc}}{{cfg.ScriptSrc}}{{else}}https://api.pirsch.io/pa.js{{end}}"
         id="pianjs"
-        data-code="{{cfg.ScriptIdentificationCode}}"
-        data-hit-endpoint="{{cfg.ScriptHitEndpoint}}"
-        data-event-endpoint="{{cfg.ScriptEventEndpoint}}"
+        {{if cfg.ScriptIdentificationCode}}data-code="{{cfg.ScriptIdentificationCode}}"{{end}}
+        {{if cfg.ScriptHitEndpoint}}data-hit-endpoint="{{cfg.ScriptHitEndpoint}}"{{end}}
+        {{if cfg.ScriptEventEndpoint}}data-event-endpoint="{{cfg.ScriptEventEndpoint}}"{{end}}
         {{if cfg.ScriptDev}}data-dev{{end}}
         {{if .Experiment}}data-tag-{{.Experiment}}="{{.Variant}}"{{end}}></script>
 </head>
