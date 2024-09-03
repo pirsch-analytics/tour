@@ -53,18 +53,39 @@ func checkout(w http.ResponseWriter, r *http.Request) {
 
 // thankYou handles requests to the thank-you page.
 func thankYou(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		tracking.Event(r, "Order", map[string]string{
+			"name":    r.PostFormValue("name"),
+			"email":   r.PostFormValue("email"),
+			"product": r.PostFormValue("product"),
+		}, nil)
+	}
+
 	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "thank-you.html", nil)
 }
 
 // thankYouNewsletter handles requests to the thank-you newsletter page.
 func thankYouNewsletter(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		tracking.Event(r, "Newsletter", map[string]string{
+			"email": r.PostFormValue("email"),
+		}, nil)
+	}
+
 	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "newsletter-thank-you.html", nil)
 }
 
 // thankYouContact handles requests to the thank-you contact page.
 func thankYouContact(w http.ResponseWriter, r *http.Request) {
+	if r.Method == http.MethodPost {
+		tracking.Event(r, "Contact", map[string]string{
+			"name":  r.PostFormValue("name"),
+			"email": r.PostFormValue("email"),
+		}, nil)
+	}
+
 	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "contact-thank-you.html", nil)
 }

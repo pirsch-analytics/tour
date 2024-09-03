@@ -191,6 +191,7 @@ label {
 
 input, textarea {
     width: 100%;
+    font-family: sans-serif;
     font-size: .75rem;
     border-width: 0;
     border-radius: .75rem;
