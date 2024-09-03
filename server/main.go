@@ -8,6 +8,8 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"path/filepath"
+	"strings"
 )
 
 var (
@@ -141,6 +143,19 @@ func watch(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+// download is a middleware handling requests file downloads.
+func download(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasPrefix(r.URL.Path, "downloads") {
+			tracking.Event(r, "File Download", map[string]string{
+				"path": filepath.Join("static", r.URL.Path),
+			}, nil)
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}
+
 // main is the entry point for the application.
 func main() {
 	// Load the configuration.
@@ -165,7 +180,7 @@ func main() {
 	}
 
 	// Add handler functions for the server.
-	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
+	http.Handle("/static/", http.StripPrefix("/static/", download(http.FileServer(http.Dir("static")))))
 	http.HandleFunc("/product/{slug}", product)
 	http.HandleFunc("/checkout/{slug}", checkout)
 	http.HandleFunc("/thank-you", thankYou)
