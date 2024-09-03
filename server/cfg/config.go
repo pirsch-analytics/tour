@@ -12,15 +12,17 @@ var (
 
 // Config is the application configuration.
 type Config struct {
-	Dev                      bool   `json:"dev"`
-	Host                     string `json:"host"`
-	SecureCookies            bool   `json:"secure_cookies"`
-	ScriptIdentificationCode string `json:"script_identification_code"`
-	ScriptSrc                string `json:"script_src"`
-	ScriptHitEndpoint        string `json:"script_hit_endpoint"`
-	ScriptEventEndpoint      string `json:"script_event_endpoint"`
-	ScriptDev                bool   `json:"script_dev"`
-	ClientSecret             string `json:"client_secret"`
+	Dev                      bool     `json:"dev"`
+	Host                     string   `json:"host"`
+	SecureCookies            bool     `json:"secure_cookies"`
+	ScriptIdentificationCode string   `json:"script_identification_code"`
+	ScriptSrc                string   `json:"script_src"`
+	ScriptHitEndpoint        string   `json:"script_hit_endpoint"`
+	ScriptEventEndpoint      string   `json:"script_event_endpoint"`
+	ScriptDev                bool     `json:"script_dev"`
+	ClientSecret             string   `json:"client_secret"`
+	BaseURL                  string   `json:"base_url"`
+	IPHeader                 []string `json:"ip_header"`
 }
 
 // Load loads the configuration from file.

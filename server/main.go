@@ -4,6 +4,7 @@ import (
 	"github.com/pirsch-analytics/tour/server/ab"
 	"github.com/pirsch-analytics/tour/server/cfg"
 	"github.com/pirsch-analytics/tour/server/tpl"
+	"github.com/pirsch-analytics/tour/server/tracking"
 	"log/slog"
 	"net/http"
 	"os"
@@ -17,9 +18,14 @@ var (
 
 // home handles requests to the home page and to all pages which might not be found.
 func home(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
+
 	if r.URL.Path == "/" {
 		tpl.ExecTpl(w, r, "home.html", nil)
 	} else {
+		tracking.Event(r, "404 Page Not Found", map[string]string{
+			"path": r.URL.Path,
+		}, nil)
 		w.WriteHeader(http.StatusNotFound)
 		tpl.ExecTpl(w, r, "not-found.html", nil)
 	}
@@ -27,6 +33,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 
 // product handles requests to the product page for a specific product.
 func product(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "product.html", struct {
 		Slug string
 	}{
@@ -36,6 +43,7 @@ func product(w http.ResponseWriter, r *http.Request) {
 
 // checkout handles requests to the checkout page for a specific product.
 func checkout(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "checkout.html", struct {
 		Slug string
 	}{
@@ -45,27 +53,34 @@ func checkout(w http.ResponseWriter, r *http.Request) {
 
 // thankYou handles requests to the thank-you page.
 func thankYou(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "thank-you.html", nil)
 }
 
 // thankYouNewsletter handles requests to the thank-you newsletter page.
 func thankYouNewsletter(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "newsletter-thank-you.html", nil)
 }
 
 // thankYouContact handles requests to the thank-you contact page.
 func thankYouContact(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "contact-thank-you.html", nil)
 }
 
 // contact handles requests to the contact page.
 func contact(w http.ResponseWriter, r *http.Request) {
+	tracking.PageView(r, nil)
 	tpl.ExecTpl(w, r, "contact.html", nil)
 }
 
 // phone handles requests to the phone landing page.
 func phone(w http.ResponseWriter, r *http.Request) {
 	experiment, variant := experimentPhoneHeader.Next(w, r)
+	tracking.PageView(r, map[string]string{
+		experiment: variant,
+	})
 	tpl.ExecTpl(w, r, "phone.html", struct {
 		Experiment string
 		Variant    string
@@ -78,6 +93,9 @@ func phone(w http.ResponseWriter, r *http.Request) {
 // pad handles requests to the pad landing page.
 func pad(w http.ResponseWriter, r *http.Request) {
 	experiment, variant := experimentPadHeader.Next(w, r)
+	tracking.PageView(r, map[string]string{
+		experiment: variant,
+	})
 	tpl.ExecTpl(w, r, "pad.html", struct {
 		Experiment string
 		Variant    string
@@ -90,6 +108,9 @@ func pad(w http.ResponseWriter, r *http.Request) {
 // watch handles requests to the watch landing page.
 func watch(w http.ResponseWriter, r *http.Request) {
 	experiment, variant := experimentWatchHeader.Next(w, r)
+	tracking.PageView(r, map[string]string{
+		experiment: variant,
+	})
 	tpl.ExecTpl(w, r, "watch.html", struct {
 		Experiment string
 		Variant    string
@@ -112,6 +133,9 @@ func main() {
 		slog.Error("Error loading configuration", "err", err)
 		return
 	}
+
+	// Initialize server-side tracking.
+	tracking.Init()
 
 	// Load the templates.
 	if err := tpl.LoadTemplates(cfg.Get().Dev); err != nil {

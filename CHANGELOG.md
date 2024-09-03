@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.3
+
+* added server-side tracking
+
 ## 0.2
 
 * added configuration file

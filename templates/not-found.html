@@ -11,15 +11,17 @@
     </div>
 </section>
 
-<script>
-    // Track the 404 error page event.
-    // pirschNotFound is a global function created by the script snippet.
-    document.addEventListener("readystatechange", () => {
-        if (document.readyState === "complete") {
-            pirschNotFound();
-        }
-    });
-</script>
+{{if cfg.ScriptIdentificationCode}}
+    <script>
+        // Track the 404 error page event.
+        // pirschNotFound is a global function created by the script snippet.
+        document.addEventListener("readystatechange", () => {
+            if (document.readyState === "complete") {
+                pirschNotFound();
+            }
+        });
+    </script>
+{{end}}
 
 {{template "footer.html"}}
 {{template "end.html"}}
