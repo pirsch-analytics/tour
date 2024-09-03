@@ -181,8 +181,8 @@ func main() {
 
 	// Add handler functions for the server.
 	http.Handle("/static/", http.StripPrefix("/static/", download(http.FileServer(http.Dir("static")))))
-	http.HandleFunc("/product/{slug}", product)
-	http.HandleFunc("/checkout/{slug}", checkout)
+	http.HandleFunc("/product/{slug}", tracking.EventFromURL(product))
+	http.HandleFunc("/checkout/{slug}", tracking.EventFromURL(checkout))
 	http.HandleFunc("/thank-you", thankYou)
 	http.HandleFunc("/newsletter-thank-you", thankYouNewsletter)
 	http.HandleFunc("/contact-thank-you", thankYouContact)
@@ -190,7 +190,7 @@ func main() {
 	http.HandleFunc("/phone", phone)
 	http.HandleFunc("/pad", pad)
 	http.HandleFunc("/watch", watch)
-	http.HandleFunc("/", home)
+	http.HandleFunc("/", tracking.EventFromURL(home))
 
 	// Start the server on port 8080.
 	slog.Info("Starting server", "host", cfg.Get().Host)
