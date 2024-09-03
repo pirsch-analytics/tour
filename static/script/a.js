@@ -3,8 +3,15 @@ console.log("Please check out the tour on our website to learn more: https://pir
 
 // Before attaching any Pirsch events, we wait for the page to be fully loaded.
 document.addEventListener("DOMContentLoaded", () => {
-    trackFormSubmissions();
-    trackScrollDepth();
+    // The data-use-backend attribute will be present on the script if we track from the server-side.
+    // If that's the case, we can skip tracking form submissions using JavaScript and use a different event function.
+    const useBackend = !!document.querySelector("script[data-use-backend]");
+
+    if (!useBackend) {
+        trackFormSubmissions();
+    }
+
+    trackScrollDepth(useBackend);
 });
 
 function trackFormSubmissions() {
@@ -30,7 +37,7 @@ function trackFormSubmissions() {
     });
 }
 
-function trackScrollDepth() {
+function trackScrollDepth(useBackend) {
     // List of pages we would like to track the scroll depth on.
     const pages = [
         "/phone",
@@ -54,7 +61,7 @@ function trackScrollDepth() {
         window.onbeforeunload = beforeUnload;
 
         function beforeUnload() {
-            pirsch("Scroll Depth", {meta: {position}});
+            useBackend ? trackEvent("Scroll Depth", {position}) : pirsch("Scroll Depth", {meta: {position}});
         }
 
         function getScrollPercent() {
@@ -65,4 +72,14 @@ function trackScrollDepth() {
             return Math.floor((h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100);
         }
     }
+}
+
+function trackEvent(name, meta) {
+    // We can only track strings...
+    for (let key in meta) {
+        meta[key] = meta[key].toString();
+    }
+
+    // Use sendBeacon instead of fetch, so that the event goes through even if we leave the page.
+    navigator.sendBeacon("/p/event", JSON.stringify({name, meta}));
 }

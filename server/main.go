@@ -190,6 +190,7 @@ func main() {
 	http.HandleFunc("/phone", phone)
 	http.HandleFunc("/pad", pad)
 	http.HandleFunc("/watch", watch)
+	http.HandleFunc("/p/event", tracking.EventFromJSON)
 	http.HandleFunc("/", tracking.EventFromURL(home))
 
 	// Start the server on port 8080.

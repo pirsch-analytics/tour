@@ -21,6 +21,8 @@
             {{if cfg.ScriptDev}}data-dev{{end}}
             {{if .Experiment}}data-tag-{{.Experiment}}="{{.Variant}}"{{end}}></script>
         <script src="/static/script/a.js"></script>
+    {{else}}
+        <script src="/static/script/a.js" data-use-backend></script>
     {{end}}
 </head>
 <body>

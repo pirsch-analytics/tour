@@ -1,9 +1,11 @@
 package tracking
 
 import (
+	"encoding/json"
 	sdk "github.com/pirsch-analytics/pirsch-go-sdk/v2/pkg"
 	pirschip "github.com/pirsch-analytics/pirsch/v6/pkg/tracker/ip"
 	"github.com/pirsch-analytics/tour/server/cfg"
+	"io"
 	"log/slog"
 	"net/http"
 	"strings"
@@ -96,5 +98,38 @@ func EventFromURL(next http.HandlerFunc) http.HandlerFunc {
 		}()
 
 		next(w, r)
+	}
+}
+
+// EventFromJSON tracks JavaScript using the API.
+// The data is contained inside the body as JSON.
+// The benefit over using the JavaScript snippet directly is that the backend serves as a proxy.
+// Events tracked like this won't be blocked by ad blockers, as this is a first-party request (from your site to your site).
+func EventFromJSON(w http.ResponseWriter, r *http.Request) {
+	data := struct {
+		Name string            `json:"name"`
+		Meta map[string]string `json:"meta"`
+	}{}
+
+	body, err := io.ReadAll(r.Body)
+
+	if err != nil {
+		slog.Error("Error reading event body", "err", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	if err := json.Unmarshal(body, &data); err != nil {
+		slog.Error("Error parsing event data", "err", err)
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	data.Name = strings.TrimSpace(data.Name)
+
+	if data.Name != "" {
+		Event(r, data.Name, data.Meta, nil)
+	} else {
+		w.WriteHeader(http.StatusBadRequest)
 	}
 }
