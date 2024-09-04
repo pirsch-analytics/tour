@@ -103,5 +103,9 @@ function trackEvent(name, meta) {
     }
 
     // Use sendBeacon instead of fetch, so that the event goes through even if we leave the page.
-    navigator.sendBeacon("/p/event", JSON.stringify({name, meta}));
+    navigator.sendBeacon("/p/event", JSON.stringify({
+        name,
+        meta,
+        path: location.pathname
+    }));
 }

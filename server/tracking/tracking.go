@@ -109,6 +109,7 @@ func EventFromJSON(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		Name string            `json:"name"`
 		Meta map[string]string `json:"meta"`
+		Path string            `json:"path"`
 	}{}
 
 	body, err := io.ReadAll(r.Body)
@@ -127,7 +128,9 @@ func EventFromJSON(w http.ResponseWriter, r *http.Request) {
 
 	data.Name = strings.TrimSpace(data.Name)
 
-	if data.Name != "" {
+	if data.Name != "" && data.Path != "" {
+		// Manipulate path to track the actual page the event was created on.
+		r.URL.Path = data.Path
 		Event(r, data.Name, data.Meta, nil)
 	} else {
 		w.WriteHeader(http.StatusBadRequest)
