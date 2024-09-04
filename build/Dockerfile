@@ -17,6 +17,6 @@ RUN apt update && \
     apt install -y net-tools tzdata ca-certificates
 COPY --from=build /app /app
 WORKDIR /app
-EXPOSE 8080
+EXPOSE 8090
 VOLUME ["/app/config.json"]
 ENTRYPOINT ["/app/server", "/app/config.json"]

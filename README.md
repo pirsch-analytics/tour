@@ -27,7 +27,7 @@ VERSION=<version_number> make build
 The server can then be started using Docker:
 
 ```
-docker run -p 8080:8080
+docker run -p 8090:8090
     -v ./config.json:/app/config.json
     ghcr.io/pirsch-analytics/tour:<version_number>
 ```

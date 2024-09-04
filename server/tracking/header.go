@@ -3,6 +3,7 @@ package tracking
 import (
 	pirschip "github.com/pirsch-analytics/pirsch/v6/pkg/tracker/ip"
 	"github.com/pirsch-analytics/tour/server/cfg"
+	"log/slog"
 )
 
 // getHeaderParser returns a list of parsers to extract the visitor IP address from HTTP headers.
@@ -29,6 +30,7 @@ func getHeaderParser() []pirschip.HeaderParser {
 			}
 		}
 
+		slog.Info("Using header parser", "list", headerParser)
 		return headerParser
 	}
 
