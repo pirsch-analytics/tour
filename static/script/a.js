@@ -5,10 +5,13 @@ console.log("Please check out the tour on our website to learn more: https://pir
 document.addEventListener("DOMContentLoaded", () => {
     // The data-use-backend attribute will be present on the script if we track from the server-side.
     // If that's the case, we can skip tracking form submissions using JavaScript and use a different event function.
+    // But we need to track outbound links now, as that isn't picked up by the Pirsch snippet.
     const useBackend = !!document.querySelector("script[data-use-backend]");
 
     if (!useBackend) {
         trackFormSubmissions();
+    } else {
+        trackOutboundLinkClicks();
     }
 
     trackScrollDepth(useBackend);
@@ -35,6 +38,25 @@ function trackFormSubmissions() {
             pirsch(form.getAttribute("data-pirsch-form"), {meta}).finally(() => e.target.submit());
         });
     });
+}
+
+function trackOutboundLinkClicks() {
+    // Find all links on the page.
+    const links = document.getElementsByTagName("a");
+
+    // Filter links with the data-pirsch-ignore attribute or pirsch-ignore class name.
+    for (const link of links) {
+        if (!link.hasAttribute("data-pirsch-ignore") && !link.classList.contains("pirsch-ignore")) {
+            // Filter internal links.
+            const url = new URL(link.href);
+
+            if (url !== null && url.hostname !== location.hostname) {
+                // Add event listeners for click and middle mouse button.
+                link.addEventListener("click", () => trackEvent("Outbound Link Click", {url: url.href}));
+                link.addEventListener("auxclick", () => trackEvent("Outbound Link Click", {url: url.href}));
+            }
+        }
+    }
 }
 
 function trackScrollDepth(useBackend) {
