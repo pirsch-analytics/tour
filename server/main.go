@@ -143,7 +143,7 @@ func watch(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
-// download is a middleware handling requests file downloads.
+// download is a middleware handling and tracking file downloads.
 func download(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		if strings.HasPrefix(r.URL.Path, "downloads") {
