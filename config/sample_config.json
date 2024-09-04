@@ -1,6 +1,6 @@
 {
     "dev": false,
-    "host": "tour.pirsch.io",
+    "host": "localhost:8080",
     "secure_cookies": false,
     "script_identification_code": "...",
     "client_secret": "",
